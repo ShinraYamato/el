@@ -1,11 +1,13 @@
 /*========================================
- *    sl.c: SL version 5.03
- *        Copyright 1993,1998,2014-2015
+ *    sl.c: SL version 6.00
+ *      Copyright 1993,1998,2014-2015,2022
  *                  Toyoda Masashi
  *                  (mtoyoda@acm.org)
- *        Last Modified: 2014/06/03
+ *        Last Modified: 2022/11/30
  *========================================
  */
+/* sl version 6.00 : add RE460, -r                  .                        */
+/*                                              by Pierre Buffo   2022/11/30 */
 /* sl version 5.03 : Fix some more compiler warnings.                        */
 /*                                              by Ryan Jacobs    2015/01/19 */
 /* sl version 5.02 : Fix compiler warnings.                                  */
@@ -47,6 +49,7 @@ void add_smoke(int y, int x);
 void add_man(int y, int x);
 int add_C51(int x);
 int add_D51(int x);
+int add_RE460(int x);
 int add_sl(int x);
 void option(char *str);
 int my_mvaddstr(int y, int x, char *str);
@@ -55,6 +58,7 @@ int ACCIDENT  = 0;
 int LOGO      = 0;
 int FLY       = 0;
 int C51       = 0;
+int RE460       = 0;
 
 int my_mvaddstr(int y, int x, char *str)
 {
@@ -67,7 +71,7 @@ int my_mvaddstr(int y, int x, char *str)
 
 void option(char *str)
 {
-    extern int ACCIDENT, LOGO, FLY, C51;
+    extern int ACCIDENT, LOGO, FLY, C51, RE460;
 
     while (*str != '\0') {
         switch (*str++) {
@@ -75,6 +79,7 @@ void option(char *str)
             case 'F': FLY      = 1; break;
             case 'l': LOGO     = 1; break;
             case 'c': C51      = 1; break;
+            case 'r': RE460    = 1; break;
             default:                break;
         }
     }
@@ -104,12 +109,20 @@ int main(int argc, char *argv[])
         else if (C51 == 1) {
             if (add_C51(x) == ERR) break;
         }
+        else if (RE460 == 1) {
+            char *cat = RE460CAT1;
+            int yCat = RE460Y(LINES) - 1;
+            for (int xCat = COLS - 1; xCat >=0 ; --xCat) {
+                my_mvaddstr(yCat, xCat, cat);
+            }
+            if (add_RE460(x) == ERR) break;
+        }
         else {
             if (add_D51(x) == ERR) break;
         }
         getch();
         refresh();
-        usleep(40000);
+        usleep(30000);
     }
     mvcur(0, COLS - 1, LINES - 1, 0);
     endwin();
@@ -236,6 +249,31 @@ int add_C51(int x)
         add_man(y + 3, x + 49);
     }
     add_smoke(y - 1, x + C51FUNNEL);
+    return OK;
+}
+
+int add_RE460(int x)
+{
+    static char *re460[RE460PATTERNS][RE460HEIGHT + 1]
+        = {{RE460STR1, RE460STR2, RE460STR3, RE460STR4, RE460STR5, RE460STR6, RE460STR7,
+            RE460STR8, RE460STR9, RE460DEL}};
+
+    int y, i, dy = 0;
+
+    if (x < - RE460LENGTH)  return ERR;
+    y = RE460Y(LINES);
+
+    if (FLY == 1) {
+        y = (x / 7) + LINES - (COLS / 7) - RE460HEIGHT;
+        dy = 1;
+    }
+    for (i = 0; i <= RE460HEIGHT; ++i) {
+        my_mvaddstr(y + i, x, re460[(RE460LENGTH + x) % RE460PATTERNS][i]);
+    }
+    if (ACCIDENT == 1) {
+        add_man(y + 3, x + 45);
+        add_man(y + 3, x + 49);
+    }
     return OK;
 }
 

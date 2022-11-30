@@ -1,9 +1,9 @@
 /*========================================
- *    sl.h: SL version 5.02
- *	Copyright 1993,2002,2014
- *                Toyoda Masashi
- *		  (mtoyoda@acm.org)
- *	Last Modified: 2014/06/03
+ *    sl.c: SL version 6.00
+ *      Copyright 1993,1998,2014-2015,2022
+ *                  Toyoda Masashi
+ *                  (mtoyoda@acm.org)
+ *        Last Modified: 2022/11/30
  *========================================
  */
 
@@ -148,3 +148,22 @@
 #define C51WH12 "------'|oOo|=[]=-      ||      ||      |  ||=======_|__"
 #define C51WH13 "/~\\____|___|/~\\_|  O=======O=======O   |__|+-/~\\_|     "
 #define C51WH14 "\\_/         \\_/  \\____/  \\____/  \\____/      \\_/       "
+
+#define RE460HEIGHT 9
+#define RE460LENGTH 65
+#define RE460PATTERNS 1
+
+#define RE460DEL "                                                                  "
+
+#define RE460CAT1 "_"
+#define RE460STR1 "                                              ___--\"              "
+#define RE460STR2 "                                             \\`-.                 "
+#define RE460STR3 "       __----_\"_-----------------------------`--`___----__        "
+#define RE460STR4 "    .-'_________#################################_________`-.     "
+#define RE460STR5 "   //[_]| |                  -------. .  .------      | |[_]\\\\    "
+#define RE460STR6 "  /     | |                  |------< |  `------.     | |     \\   "
+#define RE460STR7 " (      |_|                  -------' ----------'     |_|      )  "
+#define RE460STR8 "[=\\===========================================================/=] "
+#define RE460STR9 "   )  -(-o-)=___=(-o-)-      \\_____/      -(-o-)=___=(-o-)-  (    "
+
+#define RE460Y(lines) (lines / 2 - 5)
