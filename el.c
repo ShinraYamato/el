@@ -1,12 +1,12 @@
 /*========================================
- *    sl.c: SL version 6.00
+ *    el.c: EL version 6.00, a fork of sl
  *      Copyright 1993,1998,2014-2015,2022
  *                  Toyoda Masashi
  *                  (mtoyoda@acm.org)
  *        Last Modified: 2022/11/30
  *========================================
  */
-/* sl version 6.00 : add RE460, -r                  .                        */
+/* el version 6.00 : add RE460, -r                  .                        */
 /*                                              by Pierre Buffo   2022/11/30 */
 /* sl version 5.03 : Fix some more compiler warnings.                        */
 /*                                              by Ryan Jacobs    2015/01/19 */
@@ -43,7 +43,7 @@
 #include <curses.h>
 #include <signal.h>
 #include <unistd.h>
-#include "sl.h"
+#include "el.h"
 
 void add_smoke(int y, int x);
 void add_man(int y, int x);
@@ -258,15 +258,11 @@ int add_RE460(int x)
         = {{RE460STR1, RE460STR2, RE460STR3, RE460STR4, RE460STR5, RE460STR6, RE460STR7,
             RE460STR8, RE460STR9, RE460DEL}};
 
-    int y, i, dy = 0;
+    int y, i = 0;
 
     if (x < - RE460LENGTH)  return ERR;
     y = RE460Y(LINES);
 
-    if (FLY == 1) {
-        y = (x / 7) + LINES - (COLS / 7) - RE460HEIGHT;
-        dy = 1;
-    }
     for (i = 0; i <= RE460HEIGHT; ++i) {
         my_mvaddstr(y + i, x, re460[(RE460LENGTH + x) % RE460PATTERNS][i]);
     }

@@ -1,6 +1,6 @@
 #==========================================
-#    Makefile: makefile for sl 5.1
-#	Copyright 1993, 1998, 2014
+#    Makefile: makefile for el 6
+#	Copyright 1993, 1998, 2014, 2022
 #                 Toyoda Masashi
 #		  (mtoyoda@acm.org)
 #	Last Modified: 2014/03/31
@@ -9,12 +9,12 @@
 CC=gcc
 CFLAGS=-O -Wall
 
-all: sl
+all: el
 
-sl: sl.c sl.h
-	$(CC) $(CFLAGS) -o sl sl.c -lncurses
+el: el.c el.h
+	$(CC) $(CFLAGS) -o el el.c -lncurses
 
 clean:
-	rm -f sl
+	rm -f el
 
 distclean: clean

@@ -1,5 +1,5 @@
 /*========================================
- *    sl.c: SL version 6.00
+ *    el.c: EL version 6.00, a fork of sl
  *      Copyright 1993,1998,2014-2015,2022
  *                  Toyoda Masashi
  *                  (mtoyoda@acm.org)
